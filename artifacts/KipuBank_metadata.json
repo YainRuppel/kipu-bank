@@ -1,0 +1,494 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_limiteBanco",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_topeRetiroPorTx",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "solicitado",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "disponible",
+						"type": "uint256"
+					}
+				],
+				"name": "BalanceInsuficiente",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "MontoCero",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "solicitado",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tope",
+						"type": "uint256"
+					}
+				],
+				"name": "RetiroSobreTope",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "totalIntentado",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "limite",
+						"type": "uint256"
+					}
+				],
+				"name": "TopeBancoExcedido",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "a",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "TransferenciaNativaFallida",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "usuario",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "balanceUsuario",
+						"type": "uint256"
+					}
+				],
+				"name": "Depositado",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "usuario",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "balanceUsuario",
+						"type": "uint256"
+					}
+				],
+				"name": "Retirado",
+				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "boveda",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "conteoDepositos",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "conteoRetiros",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "depositar",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "estadisticas",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "_saldoBancoTotal",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_conteoDepositos",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_conteoRetiros",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "limiteBanco",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "retirar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "saldoBancoTotal",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "usuario",
+						"type": "address"
+					}
+				],
+				"name": "saldoDe",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "topeRetiroPorTx",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"author": "YAIN RUPPEL -TalentoTECH",
+			"details": "CEI = Checks-Effects-Interactions. Las transferencias nativas usan `call`.",
+			"errors": {
+				"BalanceInsuficiente(uint256,uint256)": [
+					{
+						"params": {
+							"disponible": "Balance disponible en su bóveda.",
+							"solicitado": "Monto solicitado por el usuario."
+						}
+					}
+				],
+				"RetiroSobreTope(uint256,uint256)": [
+					{
+						"params": {
+							"solicitado": "Monto solicitado por el usuario.",
+							"tope": "Límite máximo permitido por transacción."
+						}
+					}
+				],
+				"TopeBancoExcedido(uint256,uint256)": [
+					{
+						"params": {
+							"limite": "Límite global configurado.",
+							"totalIntentado": "Nuevo total que se intentó alcanzar."
+						}
+					}
+				],
+				"TransferenciaNativaFallida(address,uint256)": [
+					{
+						"params": {
+							"a": "Destinatario.",
+							"monto": "Monto intentado."
+						}
+					}
+				]
+			},
+			"events": {
+				"Depositado(address,uint256,uint256)": {
+					"params": {
+						"balanceUsuario": "Nuevo balance del usuario.",
+						"monto": "Monto depositado (wei).",
+						"usuario": "Dirección del depositante."
+					}
+				},
+				"Retirado(address,uint256,uint256)": {
+					"params": {
+						"balanceUsuario": "Nuevo balance del usuario.",
+						"monto": "Monto retirado (wei).",
+						"usuario": "Dirección del retirante."
+					}
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"constructor": {
+					"params": {
+						"_limiteBanco": "Límite global de depósitos (wei).",
+						"_topeRetiroPorTx": "Tope por retiro (wei)."
+					}
+				},
+				"depositar()": {
+					"details": "CEI:  - Checks: valida límites (monto > 0 y límite global).  - Effects: actualiza estado (mapping/contadores).  - Interactions: no hay llamadas externas aquí."
+				},
+				"estadisticas()": {
+					"returns": {
+						"_conteoDepositos": "Cantidad de depósitos.",
+						"_conteoRetiros": "Cantidad de retiros.",
+						"_saldoBancoTotal": "Suma de todos los balances."
+					}
+				},
+				"retirar(uint256)": {
+					"details": "CEI: validaciones → actualizar estado → transferir al final.",
+					"params": {
+						"monto": "Monto a retirar (wei)."
+					}
+				},
+				"saldoDe(address)": {
+					"params": {
+						"usuario": "Dirección a consultar."
+					}
+				}
+			},
+			"stateVariables": {
+				"limiteBanco": {
+					"details": "Inmutable: se fija en el constructor."
+				},
+				"topeRetiroPorTx": {
+					"details": "Inmutable: se fija en el constructor."
+				}
+			},
+			"title": "KIPU-BANK",
+			"version": 1
+		},
+		"userdoc": {
+			"errors": {
+				"BalanceInsuficiente(uint256,uint256)": [
+					{
+						"notice": "El usuario no tiene balance suficiente para retirar."
+					}
+				],
+				"MontoCero()": [
+					{
+						"notice": "El monto provisto es cero (no tiene sentido operar con 0)."
+					}
+				],
+				"RetiroSobreTope(uint256,uint256)": [
+					{
+						"notice": "Se excede el tope por transacción para retiros."
+					}
+				],
+				"TopeBancoExcedido(uint256,uint256)": [
+					{
+						"notice": "El depósito total superaría el límite global del banco."
+					}
+				],
+				"TransferenciaNativaFallida(address,uint256)": [
+					{
+						"notice": "Falló el envío de ETH nativo."
+					}
+				]
+			},
+			"events": {
+				"Depositado(address,uint256,uint256)": {
+					"notice": "Se emite en cada depósito exitoso."
+				},
+				"Retirado(address,uint256,uint256)": {
+					"notice": "Se emite en cada retiro exitoso."
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"boveda(address)": {
+					"notice": "Bóveda personal por usuario: cuánto ETH tiene cada address."
+				},
+				"constructor": {
+					"notice": "Configura el límite global y el tope por retiro."
+				},
+				"conteoDepositos()": {
+					"notice": "Cantidad total de depósitos realizados (métrica)."
+				},
+				"conteoRetiros()": {
+					"notice": "Cantidad total de retiros realizados (métrica)."
+				},
+				"depositar()": {
+					"notice": "Deposita ETH en tu bóveda personal."
+				},
+				"estadisticas()": {
+					"notice": "Retorna métricas del contrato."
+				},
+				"limiteBanco()": {
+					"notice": "Límite global de depósitos (suma de todas las bóvedas)."
+				},
+				"retirar(uint256)": {
+					"notice": "Retira un monto de tu bóveda, respetando el tope por transacción."
+				},
+				"saldoBancoTotal()": {
+					"notice": "Suma de todos los balances (para controlar el límite global)."
+				},
+				"saldoDe(address)": {
+					"notice": "Devuelve el balance de la bóveda del usuario."
+				},
+				"topeRetiroPorTx()": {
+					"notice": "Tope máximo permitido por transacción de retiro."
+				}
+			},
+			"notice": "Bóvedas personales de ETH con: límite global de depósitos (limiteBanco) y         tope por retiro por transacción (topeRetiroPorTx). Emite eventos,         lleva contadores, usa errores personalizados y patrón CEI.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/TP2_.sol": "KipuBank"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/TP2_.sol": {
+			"keccak256": "0x95653a5da449646543b307f9ac625d5f3bdf9672df9933a14f79c4722890ccae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3c0892a5d260f892e006f7c8e5f5fc7a515d01752b15c6cf05e7f92b30ead494",
+				"dweb:/ipfs/QmUQo8qMdaXEReiwK93s2YyXR5UnFvXD5W4V9ZdC6cLgrM"
+			]
+		}
+	},
+	"version": 1
+}
